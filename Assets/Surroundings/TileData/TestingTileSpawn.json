@@ -1,0 +1,26 @@
+﻿{
+    "name": "TestLand",
+
+    "spawnProfile": {
+        "monsters": {
+            "non-hostile": {},
+            "hostile": {}
+        },
+        "flora": {
+            "plants": {
+                "Burny": 0.5,
+                "TestGrass": 1.0
+            },
+            "trees": {},
+            "hostile": {}
+        },
+        "soil": {
+            "soilMosture": -150,
+            "soilTextureClass": "Sandy",
+            "soilSoftness": 30,
+            "secrets": ["DecomposingTime"]
+        }
+
+    }
+
+}
