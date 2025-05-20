@@ -1,17 +1,17 @@
 ﻿using System;
 using Ink.Parsed;
 using System.Security.Cryptography.X509Certificates;
-using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
-public class SurroundingDesc : MonoBehaviour
+public class SurroundingBlock : MonoBehaviour
 {
     //При захождении на тайл с предметом в окружении - показать клавишу "Взять ...(предмет)" 
     //Если там хранилища - то там появляется обыск и "Вражеский инвентарь"
     //Тут просто лист с предметами, по сути, если есть хранилища - то ещё и с 
-    [SerializeField] public List<item> itemsOnTile;
+    [SerializeField] private List<item> itemsOnTile;
     [SerializeField] private List<item> storagesOnTile;
-    [SerializeField] private TextAsset inkJson;
     [SerializeField] private TextAsset spawnJson;
     DialogManager instanceOfTheManager;
     private bool playerInLocation = false;
@@ -31,14 +31,7 @@ public class SurroundingDesc : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            instanceOfTheManager.EnterSurroundingNode(inkJson);
-            instanceOfTheManager.WriteCurrentObject(gameObject);
-
-            if(itemsOnTile.Count != 0)
-            {
-                instanceOfTheManager.DisplayItemsPickups(itemsOnTile);
-            }
-            playerInLocation = true;
+            
         }
     }
     private void OnTriggerExit(Collider other)
