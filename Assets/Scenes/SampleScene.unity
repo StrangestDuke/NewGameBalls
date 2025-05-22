@@ -18302,6 +18302,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2093929591}
   - component: {fileID: 2093929592}
+  - component: {fileID: 2093929594}
+  - component: {fileID: 2093929593}
+  - component: {fileID: 2093929595}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -18337,6 +18340,51 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   items: []
+--- !u!114 &2093929593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2093929590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cd8a41f543d00441bc8c16a6434ffb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  effects:
+  - {fileID: 11400000, guid: cf0376036b1792b4f8d38c50850ef555, type: 2}
+--- !u!114 &2093929594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2093929590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3a1094f01c484d44b12b7518c4f0328, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  strength: 10
+  dexterity: 10
+  vitality: 10
+  intelligence: 10
+  wisdow: 10
+  charisma: 10
+--- !u!114 &2093929595
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2093929590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da7321b89c0f154439712292c549b453, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  penis: {fileID: 11400000, guid: cf0376036b1792b4f8d38c50850ef555, type: 2}
 --- !u!1001 &2097620968
 PrefabInstance:
   m_ObjectHideFlags: 0
