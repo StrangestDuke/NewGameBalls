@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
+
+    public delegate void OnItemChange();
+    public OnItemChange onItemChangeCallback;
+
     public static Inventory instance;
 
     public int space = 88;
@@ -33,6 +37,16 @@ public class Inventory : MonoBehaviour
         }
             
     }
-    public void AddItem(item item) { items.Add(item); }
-    public void RemoveItem(item item) { items.Remove(item); }
+    public void AddItem(item item) 
+    { 
+        items.Add(item);
+        if (onItemChangeCallback != null)
+            onItemChangeCallback.Invoke();
+    }
+    public void RemoveItem(item item) 
+    { 
+        items.Remove(item);
+        if (onItemChangeCallback != null)
+            onItemChangeCallback.Invoke();
+    }
 }
