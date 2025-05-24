@@ -1,10 +1,11 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class InventoryUI : MonoBehaviour
 {
     Inventory inventory;
     [SerializeField] Transform InventoryParent;
     InventorySlot[] slots;
+    int indexer = 0;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -21,12 +22,15 @@ public class InventoryUI : MonoBehaviour
     }
     void UpdateUI()
     {
+        //Индексер идет к нулю, т.к. при его не обнулении - игра начинает хуево обращаться к ячейкам инвентаря
+        indexer = 0;
         for (int i = 0; i < slots.Length; i++)
         {
             if (i < inventory.items.Count)
             {
                 Debug.Log(inventory.items[i].name);
-                slots[i].AppendItem(inventory.items[i]);
+                slots[i].AppendItem(inventory.items[i], indexer);
+                indexer++;
             }
             else
             {

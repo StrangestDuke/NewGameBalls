@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1438b53bc081694eb91ef39856e698a, type: 3}
+  m_Name: Apple
+  m_EditorClassIdentifier: 
+  name: testing apple
+  icon: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  description: An apple without a texture
+  material: It`s made of apple
+  examineText: By examining this object, you futher your undertanding... That it
+    is an apple made of couple polygons
+  edable: 1
+  taste: Appleish?
+  smell: Smell like a polygons
+  usableAsAWeapon: 0
+  concevable: 0
+  breakable: 0
+  throwable: 0
+  ranged: 0
+  returnable: 0
+  canParry: 0
+  hpOfItem: 1
+  danger: 0
+  basicDamage: 1
+  size: 0.2
+  canBeWorn: 1
+  color: white
+  attraction: 0
+  sexApeal: 0
+  ergonomic: 0
+  armor: 0
+  magic: 0
+  spiked: 0
+  partOfBody: Shield

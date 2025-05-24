@@ -1,10 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour
 {
-
+    [SerializeField] private GameObject EquipmentPanel;
+    [SerializeField] private TextMeshProUGUI Description;
+    [SerializeField] private TextMeshProUGUI Name;
+    [SerializeField] private Image Icon;
     public delegate void OnItemChange();
     public OnItemChange onItemChangeCallback;
 
@@ -49,4 +54,14 @@ public class Inventory : MonoBehaviour
         if (onItemChangeCallback != null)
             onItemChangeCallback.Invoke();
     }
+
+    public void showItem(int index)
+    {
+        
+        Name.text = items[index].name;
+        Description.text = items[index].description;
+        Icon.sprite = items[index].icon;
+        
+    }
+    
 }
