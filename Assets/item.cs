@@ -7,12 +7,15 @@ using UnityEngine;
 public class item : ScriptableObject
 {
     [Header("Object setup")]
-
+    
     new public string name = "testing rose";
     public Sprite icon = null;
     public string description = "";
     public string material = "";
     public string examineText = "";
+    //for the future
+    public bool enchantable = false;
+    public bool brewable = false;
 
     [Space(10), Header("Food setup")]
     [Space(10)]

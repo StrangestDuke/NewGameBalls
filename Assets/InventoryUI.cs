@@ -28,7 +28,6 @@ public class InventoryUI : MonoBehaviour
         {
             if (i < inventory.items.Count)
             {
-                Debug.Log(inventory.items[i].name);
                 slots[i].AppendItem(inventory.items[i], indexer);
                 indexer++;
             }

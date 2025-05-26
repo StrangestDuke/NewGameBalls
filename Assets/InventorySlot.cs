@@ -8,7 +8,7 @@ public class InventorySlot : MonoBehaviour
     public int indexer = 0;
     item item;
     public Image icon;
-
+    int ammount; 
     public void AppendItem(item newItem, int index) 
     {
         indexer = index;

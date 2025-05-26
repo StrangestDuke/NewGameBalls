@@ -9,8 +9,26 @@ public class ItemPicking : MonoBehaviour
         if (Inventory.instance.CheckIfAddingItemAvailable() == true)
         {
             Inventory.instance.AddItem(pickedStuff);
-            currentPlacement.GetComponent<SurroundingDesc>().itemsOnTile.Remove(pickedStuff);
-            return true;
+            SurroundingDesc currentTile = currentPlacement.GetComponent<SurroundingDesc>();
+            if (currentTile.ammountOfItemOnTile == 1)
+            {
+                currentTile.itemsOnTile.Remove(pickedStuff);
+            }
+            else
+            {
+                if (currentTile.ammountOfItemOnTile-1 > 0)
+                {
+                    currentTile.ammountOfItemOnTile--;
+                }
+                else
+                {
+                    return false;
+                }
+
+            }
+
+
+                return true;
         }
         else 
         {

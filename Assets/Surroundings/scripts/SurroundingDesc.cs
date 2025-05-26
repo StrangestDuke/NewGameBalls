@@ -3,6 +3,7 @@ using Ink.Parsed;
 using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 
 public class SurroundingDesc : MonoBehaviour
 {
@@ -10,7 +11,10 @@ public class SurroundingDesc : MonoBehaviour
     //Если там хранилища - то там появляется обыск и "Вражеский инвентарь"
     //Тут просто лист с предметами, по сути, если есть хранилища - то ещё и с 
     [SerializeField] public List<item> itemsOnTile;
+
+    public int ammountOfItemOnTile = 1;
     [SerializeField] private List<item> storagesOnTile;
+    [SerializeField] public Dictionary<item, int> itemsInTile;
     [SerializeField] private TextAsset inkJson;
     [SerializeField] private TextAsset spawnJson;
     DialogManager instanceOfTheManager;
@@ -24,7 +28,6 @@ public class SurroundingDesc : MonoBehaviour
     private void Awake()
     {
         
-        Debug.Log("Stuff");
     }
 
     private void OnTriggerEnter(Collider other)
@@ -49,5 +52,8 @@ public class SurroundingDesc : MonoBehaviour
             playerInLocation = false;
         }
     }
-
+    public void DropItemInTile(item item)
+    {
+        //itemsInTile.Add(item);
+    }
 }

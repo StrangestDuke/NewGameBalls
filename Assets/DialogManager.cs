@@ -24,7 +24,7 @@ public class DialogManager : MonoBehaviour
 
     private Story currentStory;
 
-    private static DialogManager instance;
+    public static DialogManager instance;
 
     private const string ACTION_TAG = "action";
 
@@ -94,18 +94,21 @@ public class DialogManager : MonoBehaviour
             DisplayChoices();
 
             HandleTags(currentStory.currentTags);
-            
+
             //Генерация кнопок предметов.
-            ShowItemsInChoices(items);
+            DisplayItemsPickups(items);
         }
         else
         {
             //SurroundingChoices.text = currentStory.currentChoices;
             DisplayChoices();
+
+            DisplayItemsPickups(items);
         }
 
     }
 
+    //Не рабочая хуйня
     private void HandleTags(List<string> currentTags)
     {
         foreach (string tag in currentTags)
@@ -172,10 +175,12 @@ public class DialogManager : MonoBehaviour
             bool success = SurroundingChoicesItemPicking[choiceIndex].PickUp(SurroundingChoicesItemPicking[choiceIndex].item, currentPlacement);
             if (success) {
                 SurroundingText.text += "Вы взяли " + SurroundingChoicesItemPicking[choiceIndex].item.name + "\n";
+                ContinueSurroundingNode();
             }
             else
             {
                 SurroundingText.text += "Неудалось взять " + SurroundingChoicesItemPicking[choiceIndex].item.name + " из-за недостатка места в рюкзаке \n";
+                ContinueSurroundingNode();
             }
         }
         else
