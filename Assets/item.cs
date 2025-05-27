@@ -16,6 +16,8 @@ public class item : ScriptableObject
     //for the future
     public bool enchantable = false;
     public bool brewable = false;
+    public bool stackable = false;
+    public int numberOfItems = 1;
 
     [Space(10), Header("Food setup")]
     [Space(10)]
@@ -57,7 +59,11 @@ public class item : ScriptableObject
     public int armor = 0;
     public int magic = 0;
     public float spiked = 0;
-    public string partOfBody = "";
+    public EquimpentSlot partOfBody;
    
 
 }
+
+public enum EquimpentSlot { Head, eyes, face, ears, neck, overTorso, torso, wings,
+    wrists, gloves, rightHand, leftHand, rightHand2, leftHand2, fingers, hips, tail,
+    legs, ankles, feet, calves}

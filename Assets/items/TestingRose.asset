@@ -18,6 +18,10 @@ MonoBehaviour:
   material: cube
   examineText: It`s object made for testing, you shouldn`t be seeing that thing in
     normal circumstances
+  enchantable: 0
+  brewable: 0
+  stackable: 1
+  numberOfItems: 1
   edable: 1
   taste: This tastes like a shitpost
   smell: 'The aroma is most pleasing '

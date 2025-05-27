@@ -1,11 +1,14 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEditorInternal.Profiling.Memory.Experimental;
+using UnityEngine;
 
 public class InventoryUI : MonoBehaviour
 {
     Inventory inventory;
     [SerializeField] Transform InventoryParent;
     InventorySlot[] slots;
-    int indexer = 0;
+
+int indexer = 0;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -29,6 +32,7 @@ public class InventoryUI : MonoBehaviour
             if (i < inventory.items.Count)
             {
                 slots[i].AppendItem(inventory.items[i], indexer);
+                slots[i].ShowItemCount();
                 indexer++;
             }
             else

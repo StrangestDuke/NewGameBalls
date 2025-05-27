@@ -18,6 +18,10 @@ MonoBehaviour:
   material: It`s made of apple
   examineText: By examining this object, you futher your undertanding... That it
     is an apple made of couple polygons
+  enchantable: 0
+  brewable: 0
+  stackable: 0
+  numberOfItems: 1
   edable: 1
   taste: Appleish?
   smell: Smell like a polygons

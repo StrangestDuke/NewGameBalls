@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static Unity.VisualScripting.Metadata;
 
 public class Inventory : MonoBehaviour
 {
@@ -23,12 +24,22 @@ public class Inventory : MonoBehaviour
     public delegate void OnItemChange();
     public OnItemChange onItemChangeCallback;
 
+    [SerializeField] private GameObject InventoryLayout;
+
     //Предмет, что на данный момент "Выделен"
     item takenItem;
 
     public static Inventory instance;
 
     public int space = 88;
+
+
+    InventorySlot[] childrenOfLayout;
+
+    private void Start()
+    {
+        childrenOfLayout = InventoryLayout.GetComponentsInChildren<InventorySlot>();
+    }
 
     private void Awake()
     {
@@ -57,19 +68,66 @@ public class Inventory : MonoBehaviour
     }
     public void AddItem(item item)
     {
-        items.Add(item);
-        if (onItemChangeCallback != null)
-            onItemChangeCallback.Invoke();
+     
+
+        if (items.Contains(item) )
+        {
+            int indexOfItem = items.IndexOf(item);
+            InventorySlot itemSlot = childrenOfLayout[indexOfItem].GetComponent<InventorySlot>();
+            if (item.stackable)
+            {
+                itemSlot.ammount = itemSlot.ammount + 1;
+                itemSlot.ShowItemCount();
+            }
+            else
+            {
+                items.Add(item);
+                itemSlot.ShowItemCount();
+                if (onItemChangeCallback != null)
+                    onItemChangeCallback.Invoke();
+            }
+        }
+        else
+        {
+            items.Add(item);
+            childrenOfLayout[items.Count - 1].ShowItemCount();
+            if (onItemChangeCallback != null)
+                onItemChangeCallback.Invoke();
+        }
     }
-    public void RemoveItem(item item, bool isItEaten)
+    public void RemoveItem(item item, bool isItEaten, bool all)
     {
-        items.Remove(item);
-        if (onItemChangeCallback != null)
-            onItemChangeCallback.Invoke();
+        int indexOfItem = items.IndexOf(item);
+        InventorySlot itemSlot = childrenOfLayout[indexOfItem].GetComponent<InventorySlot>();
 
-        //Хуйня, чтобы не было возможность использовать не существующие предметы у игрока
-        Defocus(isItEaten);
-
+        if (items.Contains(item) && !all)
+        {
+            if (item.stackable && itemSlot.ammount > 1)
+            {
+                itemSlot.ammount = itemSlot.ammount - 1;
+                itemSlot.ShowItemCount();
+            }
+            else
+            {
+                items.Remove(item);
+                itemSlot.ammount = 0;
+                itemSlot.ShowItemCount();
+                if (onItemChangeCallback != null)
+                    onItemChangeCallback.Invoke();
+                //Хуйня, чтобы не было возможность использовать не существующие предметы у игрока
+                Defocus(isItEaten);
+            }
+        }
+        else
+        {
+            items.Remove(item);
+            itemSlot.ammount = 0;
+            itemSlot.ShowItemCount();
+            if (onItemChangeCallback != null)
+                onItemChangeCallback.Invoke();
+            //Хуйня, чтобы не было возможность использовать не существующие предметы у игрока
+            Defocus(isItEaten);
+        }
     }
 
     public void Defocus(bool isItEaten)
@@ -152,20 +210,30 @@ public class Inventory : MonoBehaviour
 
     public void ExamineItem()
     {
-        Description.text = takenItem.examineText;
+        Description.text = takenItem.examineText + "\n";
+        if (takenItem.smell != "")
+        {
+            Description.text += takenItem.smell;
+        }
     }
 
     public void UseItem()
     {
         Description.text = takenItem.taste;
-        RemoveItem(takenItem, true);
+        RemoveItem(takenItem, true, false);
     }
 
     public void DropItem()
     {
         SurroundingDesc currentTile = DialogManager.instance.currentPlacement.GetComponent<SurroundingDesc>();
         currentTile.DropItemInTile(takenItem);
-        RemoveItem(takenItem, false);
+        RemoveItem(takenItem, false, false);
+    }
+    public void DropAllItems()
+    {
+        SurroundingDesc currentTile = DialogManager.instance.currentPlacement.GetComponent<SurroundingDesc>();
+        currentTile.DropItemInTile(takenItem);
+        RemoveItem(takenItem, false, true);
     }
 
 }

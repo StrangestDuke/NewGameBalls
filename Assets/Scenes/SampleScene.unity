@@ -15083,12 +15083,20 @@ PrefabInstance:
       value: 0.8207547
       objectReference: {fileID: 0}
     - target: {fileID: 2427180163646301495, guid: 9d4c03f7a0fb2604bae501ebb097b052, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2427180163646301495, guid: 9d4c03f7a0fb2604bae501ebb097b052, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 2093929590}
+      objectReference: {fileID: 2093929592}
     - target: {fileID: 2427180163646301495, guid: 9d4c03f7a0fb2604bae501ebb097b052, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: 
+      value: DropAllItems
+      objectReference: {fileID: 0}
+    - target: {fileID: 2427180163646301495, guid: 9d4c03f7a0fb2604bae501ebb097b052, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Inventory, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 4491850927963659663, guid: 9d4c03f7a0fb2604bae501ebb097b052, type: 3}
       propertyPath: m_Name
@@ -18953,6 +18961,7 @@ MonoBehaviour:
   DropAll: {fileID: 1729207564}
   Give: {fileID: 1234294548}
   Brew: {fileID: 1627422358}
+  InventoryLayout: {fileID: 1431552776}
   space: 88
   items:
   - {fileID: 11400000, guid: c4b312f810364644baa450098d00f91e, type: 2}

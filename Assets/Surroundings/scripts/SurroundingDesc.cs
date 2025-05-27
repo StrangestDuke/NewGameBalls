@@ -20,6 +20,7 @@ public class SurroundingDesc : MonoBehaviour
     DialogManager instanceOfTheManager;
     private bool playerInLocation = false;
 
+    
     private void Start()
     {
         instanceOfTheManager = DialogManager.GetInstance();
