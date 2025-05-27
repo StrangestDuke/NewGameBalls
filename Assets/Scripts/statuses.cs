@@ -8,7 +8,7 @@ public class statuses : MonoBehaviour
     {
         if (instance != null)
         {
-            Debug.LogWarning("You fucked up with inventory singletone");
+            Debug.LogWarning("You fucked up status instance");
             return;
         }
         instance = this;
