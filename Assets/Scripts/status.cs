@@ -4,8 +4,7 @@ using UnityEngine.InputSystem;
 public class status : MonoBehaviour
 {
     [SerializeField] private statusEffect data;
-    [SerializeField] GameObject boba;
-    [SerializeField] Enemy enemyhp;
+    [SerializeField] enemyBar enemyhp;
     [SerializeField] stats enemystats;
 
     
@@ -17,7 +16,7 @@ public class status : MonoBehaviour
         // Какой статус эффект закинишь, тот и будет работать, костыль но работает
         if (data.effectname == "Fire")
         {
-            enemyhp.currentHealth -= data.amount;
+            enemyhp.health -= data.amount;
         }
         if (data.effectname == "Horny")
         {
