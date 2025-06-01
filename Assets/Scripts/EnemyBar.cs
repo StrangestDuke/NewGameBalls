@@ -1,4 +1,4 @@
-using UnityEngine;
+п»їusing UnityEngine;
 using UnityEngine.UI;
 
 public class enemyBar: MonoBehaviour
@@ -18,9 +18,9 @@ public class enemyBar: MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Значение хп слайдера = значение хп
+        // Г‡Г­Г Г·ГҐГ­ГЁГҐ ГµГЇ Г±Г«Г Г©Г¤ГҐГ°Г  = Г§Г­Г Г·ГҐГ­ГЁГҐ ГµГЇ РґР°
         healthSlider.value = health;
-        // Добавляет Анимацию желтого бара при уроне
+        // Г„Г®ГЎГ ГўГ«ГїГҐГІ ГЂГ­ГЁГ¬Г Г¶ГЁГѕ Г¦ГҐГ«ГІГ®ГЈГ® ГЎГ Г°Г  ГЇГ°ГЁ ГіГ°Г®Г­ГҐ
         easeHealthSlider.value = Mathf.Lerp(easeHealthSlider.value, health, lerpSpeed);
     }
 }
