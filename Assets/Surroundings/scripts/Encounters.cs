@@ -1,10 +1,12 @@
 using Ink.Parsed;
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 using static UnityEditor.Progress;
 
 [CreateAssetMenu(fileName = "Encounters", menuName = "EncountersTable")]
 public class Encounters : ScriptableObject
-{/*
+{
     [SerializeField] private List<TileOfGame> _items;
 
 
@@ -19,7 +21,7 @@ private void Initialize()
 {
     if (!isInitialized)
     {
-        _totalWeight = _items.Sum(item => item.weight);
+        //_totalWeight = _items.Sum(item => item.weight);
         isInitialized = true;
     }
 }
@@ -67,9 +69,7 @@ public TileOfGame GetRandomEncounter()
     // As long as everything works we'll never reach this point, but better be notified if this happens!
     throw new System.Exception("Reward generation failed!");
 }
-    */
 }
-/*
 [System.Serializable]
 public class TileOfGame
 {
@@ -118,4 +118,4 @@ public class EndLocation
     public int y;
     public int z;
 }
-*/
+
