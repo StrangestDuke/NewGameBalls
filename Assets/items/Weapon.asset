@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b1438b53bc081694eb91ef39856e698a, type: 3}
-  m_Name: ringOfArmor
+  m_Name: Weapon
   m_EditorClassIdentifier: 
-  name: testing ring
+  name: testing weapon
   icon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  description: Ring made of polygons
+  description: Weapon made of polygons
   material: null
-  examineText: Ring that looks out of place
+  examineText: Weapon that looks out of place
   enchantable: 0
   brewable: 0
   stackable: 0
@@ -44,4 +44,4 @@ MonoBehaviour:
   armor: 5
   magic: 0
   spiked: 0
-  partOfBody: 14
+  partOfBody: 10

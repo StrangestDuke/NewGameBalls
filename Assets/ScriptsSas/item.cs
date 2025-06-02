@@ -50,7 +50,7 @@ public class item : ScriptableObject
     [Space(10)]
     public bool canBeWorn = false;
     // public string material = "";
-    // public string effect = "";
+    public string effect = "";
     // public string enchantmets = "";
     public string color = "";
     public int attraction = 0;
@@ -65,5 +65,5 @@ public class item : ScriptableObject
 }
 
 public enum EquimpentSlot { Head, eyes, face, ears, neck, overTorso, torso, wings,
-    wrists, gloves, rightHand, leftHand, rightHand2, leftHand2, fingers, hips, tail,
-    legs, ankles, feet, calves}
+    wrists, gloves, rightHand, leftHand, rightHand2, leftHand2, rightHand3, leftHand3,
+    fingers, hips, tail, legs, ankles, feet, feetAcessories, calves}

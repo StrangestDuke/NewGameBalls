@@ -1,9 +1,10 @@
-using Unity.VisualScripting;
+﻿using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEngine.UIElements.UxmlAttributeDescription;
 
 public class Equipment : MonoBehaviour
 {
-
+    Inventory inventory;
 
     public static Equipment instance;
     private void Awake()
@@ -16,25 +17,42 @@ public class Equipment : MonoBehaviour
         instance = this;
     }
 
-    item[] currentEquipment;
+    public item[] currentEquipment;
     private void Start()
     {
+        inventory = Inventory.instance;
         int numOfSlots = System.Enum.GetNames(typeof(EquimpentSlot)).Length;
         currentEquipment = new item[numOfSlots];
     }
 
-    public void Equip(item newItem)
+    public void showItem(int index)
     {
-        int slotIndex = (int)newItem.partOfBody;
+        //Отключение кнопок при выборе другого предмета
+        #region 
+        if (inventory.items[index] != null)
+        {
 
-        currentEquipment[slotIndex] = newItem;
+            inventory.Examine.interactable = false;
+            inventory.Drop.interactable = false;
+            inventory.DropAll.interactable = false;
+            inventory.Use.interactable = false;
+            inventory.Equip.interactable = false;
+            inventory.Enchant.interactable = false;
+            inventory.Brew.interactable = false;
+        }
+
+        #endregion
+
+        inventory.takenItem = currentEquipment[index];
+
+        inventory.Name.text = inventory.takenItem.name;
+        inventory.Description.text = inventory.takenItem.description;
+        inventory.Icon.sprite = inventory.takenItem.icon;
+
+        //Кнопки, которые всегда показываются в интерфейсе
+        inventory.Examine.interactable = true;
+        inventory.Drop.interactable = true;
+        inventory.DropAll.interactable = true;
+
     }
-
-    public void DeEquip(item newItem)
-    {
-        int slotIndex = (int)newItem.partOfBody;
-
-        currentEquipment[slotIndex] = null;
-    }
-
 }

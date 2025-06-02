@@ -8,36 +8,39 @@ using static Unity.VisualScripting.Metadata;
 
 public class Inventory : MonoBehaviour
 {
-    [SerializeField] private GameObject EquipmentPanel;
-    [SerializeField] private TextMeshProUGUI Description;
-    [SerializeField] private TextMeshProUGUI Name;
-    [SerializeField] private Image Icon;
+    [SerializeField] public GameObject EquipmentPanel;
+    [SerializeField] public TextMeshProUGUI Description;
+    [SerializeField] public TextMeshProUGUI Name;
+    [SerializeField] public Image Icon;
     //[SerializeField] private GameObject[] Buttons Examine;
-    [SerializeField] private Button Examine;
-    [SerializeField] private Button Use;
-    [SerializeField] private Button Equip;
-    [SerializeField] private Button Enchant;
-    [SerializeField] private Button Drop;
-    [SerializeField] private Button DropAll;
-    [SerializeField] private Button Give;
-    [SerializeField] private Button Brew;
+    [SerializeField] public Button Examine;
+    [SerializeField] public Button Use;
+    [SerializeField] public Button Equip;
+    [SerializeField] public Button Enchant;
+    [SerializeField] public Button Drop;
+    [SerializeField] public Button DropAll;
+    [SerializeField] public Button Give;
+    [SerializeField] public Button Brew;
     public delegate void OnItemChange();
     public OnItemChange onItemChangeCallback;
 
     [SerializeField] private GameObject InventoryLayout;
 
     //Предмет, что на данный момент "Выделен"
-    item takenItem;
+    public item takenItem;
 
     public static Inventory instance;
 
     public int space = 88;
 
+    Equipment equipment;
 
     InventorySlot[] childrenOfLayout;
 
     private void Start()
     {
+
+        equipment = Equipment.instance;
         childrenOfLayout = InventoryLayout.GetComponentsInChildren<InventorySlot>();
     }
 
@@ -234,6 +237,33 @@ public class Inventory : MonoBehaviour
         SurroundingDesc currentTile = DialogManager.instance.currentPlacement.GetComponent<SurroundingDesc>();
         currentTile.DropItemInTile(takenItem);
         RemoveItem(takenItem, false, true);
+    }
+
+    public void EquipItem()
+    {
+
+        item oldItem = null;
+        int slotIndex = (int)takenItem.partOfBody;
+        equipment.currentEquipment[slotIndex] = takenItem;
+
+        if (equipment.currentEquipment[slotIndex] != null)
+        {
+            oldItem = equipment.currentEquipment[slotIndex];
+            AddItem(oldItem);
+        }
+
+        RemoveItem(takenItem, false, false);
+    }
+
+    public void DeEquipItem()
+    {
+        item oldItem = null;
+        int slotIndex = (int)takenItem.partOfBody;
+
+        oldItem = equipment.currentEquipment[slotIndex];
+        AddItem(oldItem);
+
+        equipment.currentEquipment[slotIndex] = null;
     }
 
 }
