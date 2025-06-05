@@ -17,13 +17,16 @@ MonoBehaviour:
   description: Weapon made of polygons
   material: null
   examineText: Weapon that looks out of place
-  enchantable: 0
-  brewable: 0
   stackable: 0
   numberOfItems: 1
+  enchantable: 0
+  brewable: 0
   edable: 0
   taste: 
   smell: It's strangly nostalgic
+  hungerReplenish: 0
+  hpReplenish: 0
+  manaReplenish: 0
   usableAsAWeapon: 0
   concevable: 0
   breakable: 0
@@ -35,9 +38,10 @@ MonoBehaviour:
   danger: 0
   basicDamage: 1
   size: 0.2
+  mainTypeOfDamage: 0
+  element: 0
+  additionalAttacks: 01000000
   canBeWorn: 1
-  effect: 
-  color: 
   attraction: 0
   sexApeal: 0
   ergonomic: 0
@@ -45,3 +49,4 @@ MonoBehaviour:
   magic: 0
   spiked: 0
   partOfBody: 10
+  color: 

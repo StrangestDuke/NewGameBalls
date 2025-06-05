@@ -18,13 +18,16 @@ MonoBehaviour:
   material: It`s made of apple
   examineText: By examining this object, you futher your undertanding... That it
     is an apple made of couple polygons
-  enchantable: 0
-  brewable: 0
   stackable: 0
   numberOfItems: 1
+  enchantable: 0
+  brewable: 0
   edable: 1
   taste: Appleish?
   smell: Smell like a polygons
+  hungerReplenish: 5
+  hpReplenish: 1
+  manaReplenish: 1
   usableAsAWeapon: 0
   concevable: 0
   breakable: 0
@@ -36,12 +39,15 @@ MonoBehaviour:
   danger: 0
   basicDamage: 1
   size: 0.2
+  mainTypeOfDamage: 0
+  element: 0
+  additionalAttacks: 
   canBeWorn: 1
-  color: white
-  attraction: 0
-  sexApeal: 0
-  ergonomic: 0
-  armor: 0
-  magic: 0
+  attraction: 1
+  sexApeal: 1
+  ergonomic: 1
+  armor: 1
+  magic: 1
   spiked: 1
   partOfBody: 2
+  color: white

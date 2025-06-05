@@ -12,13 +12,10 @@ public class EquipmentSlot : MonoBehaviour
     public Image icon;
 
     public int ammount;
-    public TextMeshProUGUI ammountOfItems;
-    public GameObject ammountOnItem;
     public item itemInSlot;
-public void AppendItem(item newItem, int index) 
+public void AppendItem(item newItem) 
     {
         itemInSlot = newItem;
-        ammount = itemInSlot.numberOfItems;
         item = newItem;
         icon.sprite = item.icon;    
         icon.enabled = true;
@@ -29,7 +26,6 @@ public void AppendItem(item newItem, int index)
         item = null;
         icon.sprite = null;
         itemInSlot = null;
-        ammount = 0;
         icon.enabled = false;
 
     }

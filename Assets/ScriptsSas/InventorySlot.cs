@@ -37,7 +37,6 @@ public void AppendItem(item newItem, int index)
 
     public void ShowItemCount()
     {
-        Debug.Log(ammount);
         if (ammount > 1)
         {
             ammountOnItem.SetActive(true);

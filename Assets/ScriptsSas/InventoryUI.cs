@@ -6,15 +6,19 @@ public class InventoryUI : MonoBehaviour
 {
     Inventory inventory;
     [SerializeField] Transform InventoryParent;
+    [SerializeField] Transform EquipmentParent;
     InventorySlot[] slots;
-
-int indexer = 0;
+    EquipmentSlot[] equipmentSlots;
+    Equipment equipment; 
+    int indexer = 0;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        equipment = Equipment.instance;
         inventory = Inventory.instance;
         inventory.onItemChangeCallback += UpdateUI;
         slots = InventoryParent.GetComponentsInChildren<InventorySlot>();
+        equipmentSlots = EquipmentParent.GetComponentsInChildren<EquipmentSlot>();
         UpdateUI(); 
     }
 
@@ -38,6 +42,18 @@ int indexer = 0;
             else
             {
                 slots[i].ClearItem();
+            }
+        }
+        //Equipment UI update
+        for (int i = 0; i < equipmentSlots.Length; i++)
+        {
+            if (equipment.currentEquipment[i] != null)
+            {
+                equipmentSlots[i].AppendItem(equipment.currentEquipment[i]);
+            }
+            else
+            {
+                equipmentSlots[i].ClearItem();
             }
         }
     }

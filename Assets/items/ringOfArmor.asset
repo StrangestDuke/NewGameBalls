@@ -24,6 +24,10 @@ MonoBehaviour:
   edable: 0
   taste: 
   smell: It's strangly nostalgic
+  effectFood: 
+  hungerReplenish: 0
+  hpReplenish: 0
+  manaReplenish: 0
   usableAsAWeapon: 0
   concevable: 0
   breakable: 0
@@ -35,8 +39,10 @@ MonoBehaviour:
   danger: 0
   basicDamage: 1
   size: 0.2
+  mainTypeOfDamage: 0
+  element: 0
   canBeWorn: 1
-  effect: 
+  effectCloth: 
   color: 
   attraction: 0
   sexApeal: 0
@@ -44,4 +50,4 @@ MonoBehaviour:
   armor: 5
   magic: 0
   spiked: 0
-  partOfBody: 14
+  partOfBody: 10

@@ -9,6 +9,10 @@ using static Unity.VisualScripting.Metadata;
 public class Inventory : MonoBehaviour
 {
     [SerializeField] public GameObject EquipmentPanel;
+
+    [Space(10), Header("Inventory menu setup")]
+    [Space(10)]
+
     [SerializeField] public TextMeshProUGUI Description;
     [SerializeField] public TextMeshProUGUI Name;
     [SerializeField] public Image Icon;
@@ -24,18 +28,31 @@ public class Inventory : MonoBehaviour
     public delegate void OnItemChange();
     public OnItemChange onItemChangeCallback;
 
+
+    [Space(10), Header("Lists menu setup")]
+    [Space(10)]
+
+    public List<item> items = new List<item>();
+
+    [SerializeField] private GameObject EquipmentActions;
+    [SerializeField] private GameObject InventoryActions; 
     [SerializeField] private GameObject InventoryLayout;
+
+    [SerializeField] private healthBar hpBarObj;
+    [SerializeField] private manaBar manaBarObj;
+    [SerializeField] private hungerBar hungerBarObj;
+
+
+    [Space(10), Header("Current stuff setup")]
+    [Space(10)]
 
     //Предмет, что на данный момент "Выделен"
     public item takenItem;
-
     public static Inventory instance;
-
     public int space = 88;
-
     Equipment equipment;
-
     InventorySlot[] childrenOfLayout;
+    [SerializeField] public stats statistic;
 
     private void Start()
     {
@@ -55,7 +72,6 @@ public class Inventory : MonoBehaviour
     }
 
 
-    public List<item> items = new List<item>();
 
     public bool CheckIfAddingItemAvailable()
     {
@@ -109,6 +125,7 @@ public class Inventory : MonoBehaviour
             {
                 itemSlot.ammount = itemSlot.ammount - 1;
                 itemSlot.ShowItemCount();
+                Defocus(isItEaten);
             }
             else
             {
@@ -144,6 +161,9 @@ public class Inventory : MonoBehaviour
 
         Icon.sprite = null;
 
+
+        InventoryActions.SetActive(true);
+        EquipmentActions.SetActive(false);
         Examine.interactable = false;
         Drop.interactable = false;
         DropAll.interactable = false;
@@ -161,7 +181,9 @@ public class Inventory : MonoBehaviour
         #region 
         if (items[index] != null)
         {
-
+            
+            InventoryActions.SetActive(true);
+            EquipmentActions.SetActive(false);
             Examine.interactable = false;
             Drop.interactable = false;
             DropAll.interactable = false;
@@ -211,6 +233,7 @@ public class Inventory : MonoBehaviour
 
     }
 
+
     public void ExamineItem()
     {
         Description.text = takenItem.examineText + "\n";
@@ -223,7 +246,17 @@ public class Inventory : MonoBehaviour
     public void UseItem()
     {
         Description.text = takenItem.taste;
+
+        statistic.takeDamageHunger(takenItem.hungerReplenish);
+        statistic.takeDamageHp(takenItem.hpReplenish);
+        statistic.takeDamageMana(takenItem.manaReplenish);
+
+        manaBarObj.takeDamage(takenItem.manaReplenish);
+        hpBarObj.takeDamage(takenItem.hpReplenish);
+        hungerBarObj.takeDamage(takenItem.hungerReplenish);
+
         RemoveItem(takenItem, true, false);
+
     }
 
     public void DropItem()
@@ -244,14 +277,32 @@ public class Inventory : MonoBehaviour
 
         item oldItem = null;
         int slotIndex = (int)takenItem.partOfBody;
-        equipment.currentEquipment[slotIndex] = takenItem;
 
         if (equipment.currentEquipment[slotIndex] != null)
         {
             oldItem = equipment.currentEquipment[slotIndex];
+
+            statistic.attraction -= oldItem.attraction;
+            statistic.sexApeal -= oldItem.sexApeal;
+            statistic.ergonomic -= oldItem.ergonomic;
+            statistic.armor -= oldItem.armor;
+            statistic.magic -= oldItem.magic;
+            statistic.spikes -= oldItem.spiked;
+            statistic.danger -= oldItem.danger;
+
             AddItem(oldItem);
         }
 
+
+        statistic.attraction += takenItem.attraction;
+        statistic.sexApeal += takenItem.sexApeal;
+        statistic.ergonomic += takenItem.ergonomic;
+        statistic.armor += takenItem.armor;
+        statistic.magic += takenItem.magic;
+        statistic.spikes += takenItem.spiked;
+        statistic.danger += takenItem.danger;
+
+        equipment.currentEquipment[slotIndex] = takenItem;
         RemoveItem(takenItem, false, false);
     }
 
@@ -261,9 +312,23 @@ public class Inventory : MonoBehaviour
         int slotIndex = (int)takenItem.partOfBody;
 
         oldItem = equipment.currentEquipment[slotIndex];
+
+        statistic.attraction -= oldItem.attraction;
+        statistic.sexApeal -= oldItem.sexApeal;
+        statistic.ergonomic -= oldItem.ergonomic;
+        statistic.armor -= oldItem.armor;
+        statistic.magic -= oldItem.magic;
+        statistic.spikes -= oldItem.spiked;
+        statistic.danger -= oldItem.danger;
+
         AddItem(oldItem);
 
         equipment.currentEquipment[slotIndex] = null;
+
+        if (onItemChangeCallback != null)
+            onItemChangeCallback.Invoke();
+
+        Defocus(false);
     }
 
 }
