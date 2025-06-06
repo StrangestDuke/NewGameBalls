@@ -50,4 +50,5 @@ MonoBehaviour:
   magic: 1
   spiked: 1
   partOfBody: 2
+  effects: []
   color: white

@@ -17,14 +17,13 @@ MonoBehaviour:
   description: Ring made of polygons
   material: null
   examineText: Ring that looks out of place
-  enchantable: 0
-  brewable: 0
   stackable: 0
   numberOfItems: 1
+  enchantable: 0
+  brewable: 0
   edable: 0
   taste: 
   smell: It's strangly nostalgic
-  effectFood: 
   hungerReplenish: 0
   hpReplenish: 0
   manaReplenish: 0
@@ -41,9 +40,8 @@ MonoBehaviour:
   size: 0.2
   mainTypeOfDamage: 0
   element: 0
+  additionalAttacks: 
   canBeWorn: 1
-  effectCloth: 
-  color: 
   attraction: 0
   sexApeal: 0
   ergonomic: 0
@@ -51,3 +49,6 @@ MonoBehaviour:
   magic: 0
   spiked: 0
   partOfBody: 10
+  effects:
+  - {fileID: 11400000, guid: f1737eae3efa4744eb942c667310b6ec, type: 2}
+  color: 

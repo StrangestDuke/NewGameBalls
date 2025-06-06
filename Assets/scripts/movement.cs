@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System;
 public class movement : MonoBehaviour
 {
 
@@ -8,16 +9,29 @@ public class movement : MonoBehaviour
 
     public Transform orientation;
     // components attached to player
-    float TotalCooldown = 1;
+    float TotalCooldown = 0.5f;
     float ActualCooldown = 1;
-    bool OnCooldown = true;
+    bool OnCooldown = false;
 
     float horizontalInput;
     float verticalInput;
-
+    RaycastHit hit;
     Vector3 moveDirection;
     private Rigidbody rb;
+
+
+    [SerializeField] GlobalData data;
+
+    [SerializeField] Transform whereToGo;
     // other
+    private void Start()
+    {
+    }
+
+    public void makeWorldTurnAround(int time)
+    {
+        data.changeTime(time);
+    }
 
     private void Awake()
     {
@@ -27,40 +41,32 @@ public class movement : MonoBehaviour
     private void Update()
     {
 
-        MyInput();
+        MovePlayer();
 
-    }
-
-    private void FixedUpdate()
-    {
-        if (ActualCooldown > 0)
-        {
-            OnCooldown = true;
-            ActualCooldown -= Time.deltaTime;
-        }
-        else if (ActualCooldown <= 0)
-        {
-            OnCooldown = false;
-        }
-        if (OnCooldown == false)
-        {
-            ActualCooldown = TotalCooldown;
-            MovePlayer();
-        }
-        
-    }
-
-
-    private void MyInput()
-    {
-        horizontalInput = Input.GetAxisRaw("Horizontal");
-        verticalInput = Input.GetAxisRaw("Vertical");
     }
 
     private void MovePlayer()
     {
-        moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
-        rb.gameObject.transform.position = rb.gameObject.transform.position + moveDirection *1.1f;
+        if (verticalInput == 0)
+            horizontalInput = Input.GetAxisRaw("Horizontal");
+        //Was made to defer player from moving in diagonals
+        if ( horizontalInput == 0 )
+            verticalInput = Input.GetAxisRaw("Vertical");
+
+        transform.position = Vector3.MoveTowards(transform.position, whereToGo.position, (runSpeed * 2) * Time.deltaTime);
+
+        if (Vector3.Distance(transform.position, whereToGo.position) == 0f)
+        {
+            moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
+            if (Physics.Raycast(whereToGo.transform.position, (moveDirection * 1.1f), out hit, 1.1f))
+            {
+
+                if (hit.collider.tag == "walkingGround")
+                {
+                    whereToGo.transform.position = whereToGo.transform.position + moveDirection * 1.1f;
+                }
+            }
+        }
     }
 
 }

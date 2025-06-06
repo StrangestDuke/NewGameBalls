@@ -64,7 +64,7 @@ public class item : ScriptableObject
     [Space(10)]
     //Need to be done after basic setup would be done
     //public Enchantments[] enchantmets;
-    //public Effects[] effectCloth;
+    public Effect[] effects;
     public string color = "";
     // public string material = ""
 }

@@ -66,7 +66,7 @@ public class CharAtrFiiling : MonoBehaviour
         {
             TextMeshProUGUI[] numbers = abilities[i].GetComponentsInChildren<TextMeshProUGUI>();
             numbers[0].text = statChar.Key;
-            numbers[1].text = "" + "Cock" + " | " + statChar.Value;
+            numbers[1].text = "" + "0" + " | " + statChar.Value;
             i++;
         }
     }
@@ -86,6 +86,7 @@ public class CharAtrFiiling : MonoBehaviour
 
     public void FillingEverything()
     {
+        statistic.collectDataFromStats();
         FillStrength();
         Filldexterity();
         Fillwisdow();

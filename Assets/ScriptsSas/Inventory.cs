@@ -255,6 +255,11 @@ public class Inventory : MonoBehaviour
         hpBarObj.takeDamage(takenItem.hpReplenish);
         hungerBarObj.takeDamage(takenItem.hungerReplenish);
 
+        foreach (Effect effect in takenItem.effects)
+        {
+            effect.ExecuteEffect(statistic);
+        } 
+
         RemoveItem(takenItem, true, false);
 
     }
@@ -274,6 +279,7 @@ public class Inventory : MonoBehaviour
 
     public void EquipItem()
     {
+        
 
         item oldItem = null;
         int slotIndex = (int)takenItem.partOfBody;
@@ -303,6 +309,12 @@ public class Inventory : MonoBehaviour
         statistic.danger += takenItem.danger;
 
         equipment.currentEquipment[slotIndex] = takenItem;
+
+        foreach (Effect effect in takenItem.effects)
+        {
+            effect.ExecuteEffect(statistic);
+        }
+
         RemoveItem(takenItem, false, false);
     }
 
@@ -320,6 +332,11 @@ public class Inventory : MonoBehaviour
         statistic.magic -= oldItem.magic;
         statistic.spikes -= oldItem.spiked;
         statistic.danger -= oldItem.danger;
+
+        foreach (Effect effect in takenItem.effects)
+        {
+            effect.ReverseEffect(statistic);
+        }
 
         AddItem(oldItem);
 

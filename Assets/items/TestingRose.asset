@@ -18,14 +18,13 @@ MonoBehaviour:
   material: cube
   examineText: It`s object made for testing, you shouldn`t be seeing that thing in
     normal circumstances
-  enchantable: 0
-  brewable: 0
   stackable: 1
   numberOfItems: 1
+  enchantable: 0
+  brewable: 0
   edable: 1
   taste: This tastes like a shitpost
   smell: 'The aroma is most pleasing '
-  effectFood: 
   hungerReplenish: -5
   hpReplenish: 0
   manaReplenish: 0
@@ -40,9 +39,10 @@ MonoBehaviour:
   danger: 0
   basicDamage: 1
   size: 0.2
+  mainTypeOfDamage: 0
+  element: 0
+  additionalAttacks: 
   canBeWorn: 0
-  effectCloth: 
-  color: White
   attraction: 0
   sexApeal: 0
   ergonomic: 0
@@ -50,3 +50,6 @@ MonoBehaviour:
   magic: 0
   spiked: 0
   partOfBody: 0
+  effects:
+  - {fileID: 11400000, guid: fd52a4525803da1468a6aaa0cd58153d, type: 2}
+  color: White

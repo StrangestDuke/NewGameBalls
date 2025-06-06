@@ -16,11 +16,11 @@ public class status : MonoBehaviour
         // Какой статус эффект закинишь, тот и будет работать, костыль но работает
         if (data.effectname == "Fire")
         {
-            enemyhp.health -= data.amount;
+           // enemyhp.health -= data.amount;
         }
         if (data.effectname == "Horny")
         {
-            enemystats.intelligence -= (int)data.amount;
+            //enemystats.intelligence -= (int)data.amount;
         }
         Debug.Log("Кнопка нажата");
     }

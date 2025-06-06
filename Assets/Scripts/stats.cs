@@ -60,11 +60,23 @@ public class stats : MonoBehaviour
     [Space(10)]
 
     public float CurrentCrit = 100f;
+
+    [Space(10), Header("EffectsOnPlayer")]
+    [Space(10)]
+
+    public Effect[] effects;
+
     public Dictionary<string, float> characterAbbilities = new Dictionary<string, float>();
 
     public Dictionary<string, float> characterWrongDoings = new Dictionary<string, float>();
     private void Start()
     {
+        collectDataFromStats();
+    }
+
+    public void collectDataFromStats()
+    {
+        characterAbbilities.Clear();
         characterAbbilities.Add(nameof(danger), danger);
         characterAbbilities.Add(nameof(attraction), attraction);
         characterAbbilities.Add(nameof(sexApeal), sexApeal);
@@ -74,6 +86,7 @@ public class stats : MonoBehaviour
         characterAbbilities.Add(nameof(spikes), spikes);
         characterAbbilities.Add(nameof(CurrentCrit), CurrentCrit);
 
+        characterWrongDoings.Clear();
         characterWrongDoings.Add(nameof(maxDamage), maxDamage);
         characterWrongDoings.Add(nameof(peacefullConfResolf), peacefullConfResolf);
         characterWrongDoings.Add(nameof(agressiveConfResolf), agressiveConfResolf);
@@ -81,6 +94,7 @@ public class stats : MonoBehaviour
         characterWrongDoings.Add(nameof(ammountOfFood), ammountOfFood);
         characterWrongDoings.Add(nameof(daysSurvived), daysSurvived);
     }
+
     public void takeDamageMana(float damage)
     {
         //Ñîáñòâåííî ñàìà ìåõàíèêà óðîíà

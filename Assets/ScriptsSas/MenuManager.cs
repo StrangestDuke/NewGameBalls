@@ -19,7 +19,6 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private GameObject CharacteristicsPanel;
     [SerializeField] private GameObject TreePanel;
 
-
     public void logic()
     {
         switch (index)
