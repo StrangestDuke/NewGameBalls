@@ -76,10 +76,13 @@ public class statuses : MonoBehaviour
     {
         if (time == 0)
         {
+
+            Debug.Log("Removing " + index);
             timerList.RemoveAt(index);
         }
         else
         {
+            Debug.Log(index);
             timerList[index] = time;
         }
             

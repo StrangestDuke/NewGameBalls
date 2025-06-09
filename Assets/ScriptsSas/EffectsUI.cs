@@ -20,6 +20,7 @@ public class EffectsUI : MonoBehaviour
 
     void UpdateUIEffects()
     {
+        Debug.Log("We are doing effects");
         //Индексер идет к нулю, т.к. при его не обнулении - игра начинает хуево обращаться к ячейкам инвентаря
         indexer = 0;
         int timeNeeded = 0;
@@ -35,7 +36,6 @@ public class EffectsUI : MonoBehaviour
             }
             else
             {
-                Debug.Log("We are cleaning " + i);
                 effectsSlots[i].ClearEffect();
             }
         }
