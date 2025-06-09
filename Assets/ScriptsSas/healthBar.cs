@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class healthBar : MonoBehaviour
 {
-    [SerializeField] stats statistic;
+    stats statistic;
 
     [SerializeField] public TextMeshProUGUI hpCount;
     public Slider healthSlider;
@@ -15,8 +15,20 @@ public class healthBar : MonoBehaviour
     public float health;
     private float lerpSpeed = 0.05f;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public static healthBar instanceHPBar;
+
+    private void Awake()
+    {
+        if (instanceHPBar != null)
+        {
+            Debug.LogWarning("You fucked up status instance");
+            return;
+        }
+        instanceHPBar = this;
+    }
     void Start()
     {
+        statistic = stats.instanceStats;
         health = statistic.СurrentHealth;
         maxHealth = statistic.maxHealth;
         hpCount.text = health.ToString();
@@ -27,11 +39,6 @@ public class healthBar : MonoBehaviour
     {
         // Çíà÷åíèå õï ñëàéäåðà = çíà÷åíèå õï
         healthSlider.value = health;
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            //Ñêîëüêî íàíåñåíî óðîíà
-            takeDamage(10);
-        }
         // Äîáàâëÿåò Àíèìàöèþ æåëòîãî áàðà ïðè óðîíå
         easeHealthSlider.value = Mathf.Lerp(easeHealthSlider.value, health, lerpSpeed);
 
@@ -43,6 +50,18 @@ public class healthBar : MonoBehaviour
         {
             health += damage;
 
+            hpCount.text = health.ToString();
+        }
+
+    }
+
+    public void maxDamage(float damage)
+    {
+        if (maxHealth >= health + damage)
+        {
+            health += damage;
+            healthSlider.maxValue += damage;
+            easeHealthSlider.maxValue += damage;
             hpCount.text = health.ToString();
         }
 

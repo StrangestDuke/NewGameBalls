@@ -14,14 +14,14 @@ public class status : MonoBehaviour
 
         // Ёффект зависит от effectname статуса
         //  акой статус эффект закинишь, тот и будет работать, костыль но работает
-        if (data.effectname == "Fire")
-        {
+       // if (data.effectname == "Fire")
+       // {
            // enemyhp.health -= data.amount;
-        }
-        if (data.effectname == "Horny")
-        {
+       // }
+        //if (data.effectname == "Horny")
+       // {
             //enemystats.intelligence -= (int)data.amount;
-        }
+        //}
         Debug.Log(" нопка нажата");
     }
 }

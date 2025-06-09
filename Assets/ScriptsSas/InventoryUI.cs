@@ -29,6 +29,7 @@ public class InventoryUI : MonoBehaviour
     }
     void UpdateUI()
     {
+        Debug.Log("It goes");
         //Индексер идет к нулю, т.к. при его не обнулении - игра начинает хуево обращаться к ячейкам инвентаря
         indexer = 0;
         for (int i = 0; i < slots.Length; i++)

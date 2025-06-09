@@ -3,7 +3,9 @@
 [CreateAssetMenu(fileName = "harmCrit", menuName = "items/harmCrit")]
 public class DamagingEffect : Effect
 {
+
     public int Ammount;
+
     public override void ExecuteEffect(stats player)
     {
         player.CurrentCrit -= Ammount;

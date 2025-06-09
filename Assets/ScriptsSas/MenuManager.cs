@@ -17,7 +17,7 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private GameObject StatsPanel;
     [SerializeField] private CharAtrFiiling StatsLogic;
     [SerializeField] private GameObject CharacteristicsPanel;
-    [SerializeField] private GameObject TreePanel;
+    [SerializeField] private GameObject TreePanel; 
 
     public void logic()
     {

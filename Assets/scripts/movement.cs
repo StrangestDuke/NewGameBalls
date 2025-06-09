@@ -18,7 +18,7 @@ public class movement : MonoBehaviour
     RaycastHit hit;
     Vector3 moveDirection;
     private Rigidbody rb;
-
+    statuses StatusesOnPlayer;
 
     [SerializeField] GlobalData data;
 
@@ -26,11 +26,13 @@ public class movement : MonoBehaviour
     // other
     private void Start()
     {
+        StatusesOnPlayer = statuses.instance;
     }
 
     public void makeWorldTurnAround(int time)
     {
         data.changeTime(time);
+        StatusesOnPlayer.CheckYourTime(time);
     }
 
     private void Awake()

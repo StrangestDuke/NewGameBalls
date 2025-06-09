@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using Ink.Parsed;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -6,18 +8,22 @@ using UnityEngine.UIElements;
 public class stats : MonoBehaviour
 {
 
-    public static stats instance;
+    [NonSerialized] public healthBar hpBarObj;
+    [NonSerialized] public manaBar manaBarObj;
+    [NonSerialized] public hungerBar hungerBarObj;
+
+    public static stats instanceStats;
 
     public int lvl = 1;
 
     [Space(10), Header("Counters")]
     [Space(10)]
-    public float maxHealth = 100f;
-    public float СurrentHealth = 100f;
-    public float maxMana = 100f;
-    public float СurrentMana = 100f;
-    public float maxHunger = 100f;
-    public float СurrentHunger = 100f;
+    [NonSerialized] public float maxHealth = 100f;
+    [NonSerialized] public float СurrentHealth = 100f;
+    [NonSerialized] public float maxMana = 100f;
+    [NonSerialized] public float СurrentMana = 100f;
+    [NonSerialized] public float maxHunger = 300f;
+    [NonSerialized] public float СurrentHunger = 300f;
 
 
     [Space(10), Header("Stats Base")]
@@ -69,8 +75,22 @@ public class stats : MonoBehaviour
     public Dictionary<string, float> characterAbbilities = new Dictionary<string, float>();
 
     public Dictionary<string, float> characterWrongDoings = new Dictionary<string, float>();
+
+    private void Awake()
+    {
+        if (instanceStats != null)
+        {
+            Debug.LogWarning("You fucked up status instance");
+            return;
+        }
+        instanceStats = this;
+    }
+
     private void Start()
     {
+        hpBarObj = healthBar.instanceHPBar;
+        manaBarObj = manaBar.instanceManaBar;
+        hungerBarObj = hungerBar.instanceHungerBar;
         collectDataFromStats();
     }
 
@@ -102,6 +122,7 @@ public class stats : MonoBehaviour
         {
             СurrentMana += damage;
 
+            manaBarObj.takeDamage(damage);
         }
     }
 
@@ -112,17 +133,53 @@ public class stats : MonoBehaviour
         {
             СurrentHunger += damage;
 
+            hungerBarObj.takeDamage(damage);
+
         }
     }
 
     public void takeDamageHp(float damage)
     {
         //Ñîáñòâåííî ñàìà ìåõàíèêà óðîíà
-        if (maxMana >= СurrentHealth + damage)
+        if (maxHealth >= СurrentHealth + damage)
         {
             СurrentHealth += damage;
+            hpBarObj.takeDamage(damage);
         }
     }
 
+
+    //Max shit goes down\up
+
+    public void takeMaxHp(float damage)
+    {
+        //Ñîáñòâåííî ñàìà ìåõàíèêà óðîíà
+        if (maxHealth >= СurrentHealth + damage)
+        {
+            СurrentHealth += damage;
+            hpBarObj.maxDamage(damage);
+        }
+    }
+    public void takeMaxHunger(float damage)
+    {
+        //Ñîáñòâåííî ñàìà ìåõàíèêà óðîíà
+        if (maxHunger >= СurrentHunger + damage)
+        {
+            СurrentHunger += damage;
+
+            hungerBarObj.maxDamage(damage);
+
+        }
+    }
+    public void takeMaxMana(float damage)
+    {
+        //Ñîáñòâåííî ñàìà ìåõàíèêà óðîíà
+        if (maxMana >= СurrentMana + damage)
+        {
+            СurrentMana += damage;
+
+            manaBarObj.maxDamage(damage);
+        }
+    }
 
 }

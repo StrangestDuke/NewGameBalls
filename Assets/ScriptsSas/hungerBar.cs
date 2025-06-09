@@ -5,17 +5,29 @@ using UnityEngine.UI;
 
 public class hungerBar : MonoBehaviour
 {
-    [SerializeField] stats statistics;
+    stats statistics;
 
     [SerializeField] public TextMeshProUGUI hunCount;
     public Slider healthSlider;
     public Slider easeHealthSlider;
-    public float maxHunger=0;
-    public float hunger=0;
+    public float maxHunger;
+    public float hunger;
     private float lerpSpeed = 0.05f;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public static hungerBar instanceHungerBar;
+
+    private void Awake()
+    {
+        if (instanceHungerBar != null)
+        {
+            Debug.LogWarning("You fucked up status instance");
+            return;
+        }
+        instanceHungerBar = this;
+    }
     void Start()
     {
+        statistics = stats.instanceStats;
         hunger = statistics.СurrentHunger;
         maxHunger = statistics.maxHunger;
 
@@ -27,11 +39,6 @@ public class hungerBar : MonoBehaviour
     {
         // Çíà÷åíèå õï ñëàéäåðà = çíà÷åíèå õï
         healthSlider.value = hunger;
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            //Ñêîëüêî íàíåñåíî óðîíà
-            takeDamage(10);
-        }
         // Äîáàâëÿåò Àíèìàöèþ æåëòîãî áàðà ïðè óðîíå
         easeHealthSlider.value = Mathf.Lerp(easeHealthSlider.value, hunger, lerpSpeed);
     }
@@ -42,6 +49,18 @@ public class hungerBar : MonoBehaviour
         {
             hunger += damage;
 
+            hunCount.text = hunger.ToString();
+        }
+    }
+
+    public void maxDamage(float damage)
+    {
+        if (maxHunger >= hunger + damage)
+        {
+            hunger += damage;
+
+            healthSlider.maxValue += damage;
+            easeHealthSlider.maxValue += damage;
             hunCount.text = hunger.ToString();
         }
     }

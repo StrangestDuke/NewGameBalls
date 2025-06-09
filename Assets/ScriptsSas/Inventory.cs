@@ -19,7 +19,7 @@ public class Inventory : MonoBehaviour
     //[SerializeField] private GameObject[] Buttons Examine;
     [SerializeField] public Button Examine;
     [SerializeField] public Button Use;
-    [SerializeField] public Button Equip;
+    [SerializeField] public Button Equip; 
     [SerializeField] public Button Enchant;
     [SerializeField] public Button Drop;
     [SerializeField] public Button DropAll;
@@ -37,11 +37,6 @@ public class Inventory : MonoBehaviour
     [SerializeField] private GameObject EquipmentActions;
     [SerializeField] private GameObject InventoryActions; 
     [SerializeField] private GameObject InventoryLayout;
-
-    [SerializeField] private healthBar hpBarObj;
-    [SerializeField] private manaBar manaBarObj;
-    [SerializeField] private hungerBar hungerBarObj;
-
 
     [Space(10), Header("Current stuff setup")]
     [Space(10)]
@@ -247,13 +242,9 @@ public class Inventory : MonoBehaviour
     {
         Description.text = takenItem.taste;
 
-        statistic.takeDamageHunger(takenItem.hungerReplenish);
-        statistic.takeDamageHp(takenItem.hpReplenish);
-        statistic.takeDamageMana(takenItem.manaReplenish);
-
-        manaBarObj.takeDamage(takenItem.manaReplenish);
-        hpBarObj.takeDamage(takenItem.hpReplenish);
-        hungerBarObj.takeDamage(takenItem.hungerReplenish);
+        DamageHunger(takenItem.hungerReplenish);
+        DamageMana(takenItem.manaReplenish);
+        DamageHealth(takenItem.hpReplenish);
 
         foreach (Effect effect in takenItem.effects)
         {
@@ -346,6 +337,19 @@ public class Inventory : MonoBehaviour
             onItemChangeCallback.Invoke();
 
         Defocus(false);
+    }
+    //DO NOT FORGET. This shit ADDS numbers, so if you pass 5 - you will restore 5, if you pass -5 - you will damage 5
+    public void DamageHunger(int number)
+    {
+        statistic.takeDamageHunger(number);
+    }
+    public void DamageMana(int number)
+    {
+        statistic.takeDamageMana(number);
+    }
+    public void DamageHealth(int number)
+    {
+        statistic.takeDamageHp(number);
     }
 
 }
