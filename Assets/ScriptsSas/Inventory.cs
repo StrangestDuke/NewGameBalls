@@ -8,36 +8,51 @@ using static Unity.VisualScripting.Metadata;
 
 public class Inventory : MonoBehaviour
 {
-    [SerializeField] private GameObject EquipmentPanel;
-    [SerializeField] private TextMeshProUGUI Description;
-    [SerializeField] private TextMeshProUGUI Name;
-    [SerializeField] private Image Icon;
+    [SerializeField] public GameObject EquipmentPanel;
+
+    [Space(10), Header("Inventory menu setup")]
+    [Space(10)]
+
+    [SerializeField] public TextMeshProUGUI Description;
+    [SerializeField] public TextMeshProUGUI Name;
+    [SerializeField] public Image Icon;
     //[SerializeField] private GameObject[] Buttons Examine;
-    [SerializeField] private Button Examine;
-    [SerializeField] private Button Use;
-    [SerializeField] private Button Equip;
-    [SerializeField] private Button Enchant;
-    [SerializeField] private Button Drop;
-    [SerializeField] private Button DropAll;
-    [SerializeField] private Button Give;
-    [SerializeField] private Button Brew;
+    [SerializeField] public Button Examine;
+    [SerializeField] public Button Use;
+    [SerializeField] public Button Equip; 
+    [SerializeField] public Button Enchant;
+    [SerializeField] public Button Drop;
+    [SerializeField] public Button DropAll;
+    [SerializeField] public Button Give;
+    [SerializeField] public Button Brew;
     public delegate void OnItemChange();
     public OnItemChange onItemChangeCallback;
 
+
+    [Space(10), Header("Lists menu setup")]
+    [Space(10)]
+
+    public List<item> items = new List<item>();
+
+    [SerializeField] private GameObject EquipmentActions;
+    [SerializeField] private GameObject InventoryActions; 
     [SerializeField] private GameObject InventoryLayout;
 
+    [Space(10), Header("Current stuff setup")]
+    [Space(10)]
+
     //Предмет, что на данный момент "Выделен"
-    item takenItem;
-
+    public item takenItem;
     public static Inventory instance;
-
     public int space = 88;
-
-
+    Equipment equipment;
     InventorySlot[] childrenOfLayout;
+    [SerializeField] public stats statistic;
 
     private void Start()
     {
+
+        equipment = Equipment.instance;
         childrenOfLayout = InventoryLayout.GetComponentsInChildren<InventorySlot>();
     }
 
@@ -52,7 +67,6 @@ public class Inventory : MonoBehaviour
     }
 
 
-    public List<item> items = new List<item>();
 
     public bool CheckIfAddingItemAvailable()
     {
@@ -106,6 +120,7 @@ public class Inventory : MonoBehaviour
             {
                 itemSlot.ammount = itemSlot.ammount - 1;
                 itemSlot.ShowItemCount();
+                Defocus(isItEaten);
             }
             else
             {
@@ -141,6 +156,9 @@ public class Inventory : MonoBehaviour
 
         Icon.sprite = null;
 
+
+        InventoryActions.SetActive(true);
+        EquipmentActions.SetActive(false);
         Examine.interactable = false;
         Drop.interactable = false;
         DropAll.interactable = false;
@@ -158,7 +176,9 @@ public class Inventory : MonoBehaviour
         #region 
         if (items[index] != null)
         {
-
+            
+            InventoryActions.SetActive(true);
+            EquipmentActions.SetActive(false);
             Examine.interactable = false;
             Drop.interactable = false;
             DropAll.interactable = false;
@@ -208,6 +228,7 @@ public class Inventory : MonoBehaviour
 
     }
 
+
     public void ExamineItem()
     {
         Description.text = takenItem.examineText + "\n";
@@ -220,7 +241,18 @@ public class Inventory : MonoBehaviour
     public void UseItem()
     {
         Description.text = takenItem.taste;
+
+        DamageHunger(takenItem.hungerReplenish);
+        DamageMana(takenItem.manaReplenish);
+        DamageHealth(takenItem.hpReplenish);
+
+        foreach (Effect effect in takenItem.effects)
+        {
+            effect.ExecuteEffect(statistic);
+        } 
+
         RemoveItem(takenItem, true, false);
+
     }
 
     public void DropItem()
@@ -234,6 +266,90 @@ public class Inventory : MonoBehaviour
         SurroundingDesc currentTile = DialogManager.instance.currentPlacement.GetComponent<SurroundingDesc>();
         currentTile.DropItemInTile(takenItem);
         RemoveItem(takenItem, false, true);
+    }
+
+    public void EquipItem()
+    {
+        
+
+        item oldItem = null;
+        int slotIndex = (int)takenItem.partOfBody;
+
+        if (equipment.currentEquipment[slotIndex] != null)
+        {
+            oldItem = equipment.currentEquipment[slotIndex];
+
+            statistic.attraction -= oldItem.attraction;
+            statistic.sexApeal -= oldItem.sexApeal;
+            statistic.ergonomic -= oldItem.ergonomic;
+            statistic.armor -= oldItem.armor;
+            statistic.magic -= oldItem.magic;
+            statistic.spikes -= oldItem.spiked;
+            statistic.danger -= oldItem.danger;
+
+            AddItem(oldItem);
+        }
+
+
+        statistic.attraction += takenItem.attraction;
+        statistic.sexApeal += takenItem.sexApeal;
+        statistic.ergonomic += takenItem.ergonomic;
+        statistic.armor += takenItem.armor;
+        statistic.magic += takenItem.magic;
+        statistic.spikes += takenItem.spiked;
+        statistic.danger += takenItem.danger;
+
+        equipment.currentEquipment[slotIndex] = takenItem;
+
+        foreach (Effect effect in takenItem.effects)
+        {
+            effect.ExecuteEffect(statistic);
+        }
+
+        RemoveItem(takenItem, false, false);
+    }
+
+    public void DeEquipItem()
+    {
+        item oldItem = null;
+        int slotIndex = (int)takenItem.partOfBody;
+
+        oldItem = equipment.currentEquipment[slotIndex];
+
+        statistic.attraction -= oldItem.attraction;
+        statistic.sexApeal -= oldItem.sexApeal;
+        statistic.ergonomic -= oldItem.ergonomic;
+        statistic.armor -= oldItem.armor;
+        statistic.magic -= oldItem.magic;
+        statistic.spikes -= oldItem.spiked;
+        statistic.danger -= oldItem.danger;
+
+        foreach (Effect effect in takenItem.effects)
+        {
+            effect.ReverseEffect(statistic);
+        }
+
+        AddItem(oldItem);
+
+        equipment.currentEquipment[slotIndex] = null;
+
+        if (onItemChangeCallback != null)
+            onItemChangeCallback.Invoke();
+
+        Defocus(false);
+    }
+    //DO NOT FORGET. This shit ADDS numbers, so if you pass 5 - you will restore 5, if you pass -5 - you will damage 5
+    public void DamageHunger(int number)
+    {
+        statistic.takeDamageHunger(number);
+    }
+    public void DamageMana(int number)
+    {
+        statistic.takeDamageMana(number);
+    }
+    public void DamageHealth(int number)
+    {
+        statistic.takeDamageHp(number);
     }
 
 }

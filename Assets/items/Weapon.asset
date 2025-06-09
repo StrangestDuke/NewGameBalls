@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1438b53bc081694eb91ef39856e698a, type: 3}
+  m_Name: Weapon
+  m_EditorClassIdentifier: 
+  name: testing weapon
+  icon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  description: Weapon made of polygons
+  material: null
+  examineText: Weapon that looks out of place
+  stackable: 0
+  numberOfItems: 1
+  enchantable: 0
+  brewable: 0
+  edable: 0
+  taste: 
+  smell: It's strangly nostalgic
+  hungerReplenish: 0
+  hpReplenish: 0
+  manaReplenish: 0
+  usableAsAWeapon: 0
+  concevable: 0
+  breakable: 0
+  throwable: 0
+  ranged: 0
+  returnable: 0
+  canParry: 1
+  hpOfItem: 1
+  danger: 0
+  basicDamage: 1
+  size: 0.2
+  mainTypeOfDamage: 0
+  element: 0
+  additionalAttacks: 01000000
+  canBeWorn: 1
+  attraction: 0
+  sexApeal: 0
+  ergonomic: 0
+  armor: 5
+  magic: 0
+  spiked: 0
+  partOfBody: 10
+  color: 

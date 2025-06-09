@@ -4,6 +4,7 @@ using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
+using Unity.VisualScripting;
 
 public class SurroundingDesc : MonoBehaviour
 {
@@ -18,9 +19,10 @@ public class SurroundingDesc : MonoBehaviour
     [SerializeField] private TextAsset inkJson;
     [SerializeField] private TextAsset spawnJson;
     DialogManager instanceOfTheManager;
-    private bool playerInLocation = false;
+    public movement playerInLocation;
+    [SerializeField] int timeTakenToGoFromTile = 1;
 
-    
+
     private void Start()
     {
         instanceOfTheManager = DialogManager.GetInstance();
@@ -42,7 +44,12 @@ public class SurroundingDesc : MonoBehaviour
             {
                 instanceOfTheManager.DisplayItemsPickups(itemsOnTile);
             }
-            playerInLocation = true;
+            playerInLocation = other.gameObject.GetComponent<movement>();
+            playerInLocation.makeWorldTurnAround(timeTakenToGoFromTile);
+        }
+        if(other.gameObject.tag == "check")
+        {
+
         }
     }
     private void OnTriggerExit(Collider other)
@@ -50,7 +57,7 @@ public class SurroundingDesc : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             //DialogManager.GetInstance().GutSurroundingNode();
-            playerInLocation = false;
+            playerInLocation = other.gameObject.GetComponent<movement>();
         }
     }
     public void DropItemInTile(item item)
