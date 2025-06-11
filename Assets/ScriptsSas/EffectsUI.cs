@@ -1,4 +1,5 @@
 ﻿using System;
+using Ink.Parsed;
 using UnityEngine;
 
 public class EffectsUI : MonoBehaviour
@@ -13,7 +14,7 @@ public class EffectsUI : MonoBehaviour
     {
         statusManager = statuses.instance;
         statusManager.OnEffectsChangeCallback += UpdateUIEffects;
-        effectsSlots = effectsTransform.GetComponentsInChildren<EffectSlot>();
+        effectsSlots = statusManager.childrenOfLayout.ToArray();
         UpdateUIEffects();
     }
 
@@ -28,8 +29,6 @@ public class EffectsUI : MonoBehaviour
         {
             if (i < statusManager.effects.Count)
             {
-                if (statusManager.timerList.Count > i)
-                    timeNeeded = statusManager.timerList[i];
 
                 effectsSlots[i].AppendEffect(statusManager.effects[i], indexer, timeNeeded);
                 indexer++;

@@ -55,23 +55,14 @@ public class EffectSlot : MonoBehaviour
     {
         if (time - timeThatTook < 0)
         {
-            Debug.Log("В ПИЗДУ");
             time = 0;
-            statusesList.changingTime(indexOfTime, 0);
             return true;
 
         }
         else
         {
             time = time - timeThatTook;
-
-            statusesList.changingTime(indexOfTime, time);
             return false;
         }
-    }
-
-    public int GimmeMyTime()
-    {
-        return time;
     }
 }

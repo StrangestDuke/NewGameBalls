@@ -17,6 +17,7 @@ public class DialogManager : MonoBehaviour
     [SerializeField] private GameObject[] SurroundingChoices;
     [SerializeField] private TextMeshProUGUI DialogueChoices;
     [SerializeField] private List<item> items;
+    [SerializeField] private List<furnitureItem> furniture;
     [SerializeField] private ItemPicking[] SurroundingChoicesItemPicking;
     private int numberOfItems = 0;
     public GameObject currentPlacement;
@@ -83,6 +84,21 @@ public class DialogManager : MonoBehaviour
         //SurroundingChoices.text = currentStory.currentChoices;
         DisplayChoices();
     }
+
+    public void ShowFurnitureOnTile(List<furnitureItem> furnitureOnTile)
+    {
+        SurroundingText.text += "\n";
+
+        foreach (furnitureItem furnitureShit in furnitureOnTile)
+        {
+            SurroundingText.text += "There is a <color=red>" + furnitureShit.name + "</color> " + furnitureShit.description + ", it is made of " + furnitureShit.material + "\n";
+            
+        }
+        //SurroundingChoices.text = currentStory.currentChoices;
+
+        ContinueSurroundingNode();
+    }
+
     public void ContinueSurroundingNode()
     {
 
